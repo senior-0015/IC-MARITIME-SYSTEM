@@ -1,0 +1,30 @@
+type Error = variant { NotFound : record { msg : text } };
+type Result = variant { Ok; Err : Error };
+type Result_1 = variant { Ok : Vessel; Err : Error };
+type Result_2 = variant { Ok : Voyage; Err : Error };
+type Vessel = record {
+  id : nat64;
+  name : text;
+  current_location : text;
+  captain : text;
+  capacity : nat32;
+  last_update : nat64;
+};
+type Voyage = record {
+  id : nat64;
+  departure_port : text;
+  departure_time : nat64;
+  arrival_time : opt nat64;
+  destination_port : text;
+  vessel_id : nat64;
+};
+service : {
+  add_vessel : (Vessel) -> (opt Vessel);
+  add_voyage : (Voyage) -> (opt Voyage);
+  delete_vessel : (nat64) -> (Result);
+  delete_voyage : (nat64) -> (Result);
+  get_vessel : (nat64) -> (Result_1) query;
+  get_voyage : (nat64) -> (Result_2) query;
+  update_vessel : (nat64, Vessel) -> (Result);
+  update_voyage : (nat64, Voyage) -> (Result);
+}
