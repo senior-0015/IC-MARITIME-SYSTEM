@@ -1,2 +1,4 @@
 .dfx
 .env
+target
+src/declarations
